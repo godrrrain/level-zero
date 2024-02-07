@@ -1,0 +1,16 @@
+-- file: 10-create-user-table.sql
+CREATE ROLE program WITH PASSWORD 'test';
+ALTER ROLE program WITH LOGIN;
+
+CREATE DATABASE wb;
+GRANT ALL PRIVILEGES ON DATABASE wb TO program;
+
+\c wb;
+
+CREATE TABLE IF NOT EXISTS orders (
+    order_uid VARCHAR(255) PRIMARY KEY NOT NULL,
+    data_json JSON NOT NULL
+);
+
+GRANT ALL ON ALL TABLES IN SCHEMA public TO program;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO program;
